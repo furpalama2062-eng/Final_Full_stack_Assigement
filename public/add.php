@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../includes/header.php'; // session already started in header
 
 $old_title = $_POST['title'] ?? '';
 $old_author = $_POST['author'] ?? '';
@@ -7,9 +7,7 @@ $old_category = $_POST['category'] ?? '';
 $old_year = $_POST['published_year'] ?? '';
 $old_isbn = $_POST['isbn'] ?? '';
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+// CSRF token is already generated in header.php
 $csrf_token = $_SESSION['csrf_token'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -78,15 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <form method="post">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
     <label>Title:</label>
-    <input type="text" name="title" value="<?= htmlspecialchars($old_title) ?>" placeholder="Enter book title:" required><br>
+    <input type="text" name="title" value="<?= htmlspecialchars($old_title) ?>" required><br>
     <label>Author:</label>
-    <input type="text" name="author" value="<?= htmlspecialchars($old_author) ?>" placeholder="Enter author name:" required><br>
-    <label for="category">Category:</label>
-    <select id="category" name="category" required>
+    <input type="text" name="author" value="<?= htmlspecialchars($old_author) ?>" required><br>
+    <label>Category:</label>
+    <select name="category" required>
         <option value="">--Select category--</option>
         <optgroup label="Fiction">
             <option value="Adventure">Adventure</option>
@@ -116,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label>Published Year:</label>
     <input type="date" name="published_year" value="<?= htmlspecialchars($old_year) ?>" required><br>
     <label>ISBN:</label>
-    <input type="text" name="isbn" value="<?= htmlspecialchars($old_isbn) ?>" placeholder="Enter ISBN">
+    <input type="text" name="isbn" value="<?= htmlspecialchars($old_isbn) ?>" placeholder="Enter ISBN"><br>
     <button type="submit">Add book</button>
 </form>
+<?php include '../includes/footer.php'; ?>

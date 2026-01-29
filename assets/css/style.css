@@ -1,0 +1,128 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Body */
+body {
+    background: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header / Navigation */
+header nav {
+    background: #2c3e50;
+    padding: 12px 20px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+/* Headings */
+h1, h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Forms */
+form {
+    background: #fff;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button,
+input[type="submit"] {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background: #2980b9;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #ecf0f1;
+}
+
+/* Messages */
+p {
+    margin: 10px 0;
+}
+
+p[style*="color:red"] {
+    color: #c0392b !important;
+}
+
+p[style*="color:green"] {
+    color: #27ae60 !important;
+}
+
+/* Ajax Suggestions */
+#title-suggestions {
+    max-width: 600px;
+}
+
+#title-suggestions div:hover {
+    background: #ecf0f1;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    background: #ecf0f1;
+}

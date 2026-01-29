@@ -1,0 +1,7 @@
+</main>
+<footer>
+    <p>&copy; 2026 My Library</p>
+</footer>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
