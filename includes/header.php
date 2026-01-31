@@ -21,10 +21,18 @@ $csrf_token = $_SESSION['csrf_token'];
 </head>
 <body>
 <header>
-    <nav style="padding:10px; background:#f2f2f2; margin-bottom:20px;">
-        <a href="index.php" style="margin-right:15px;">Home</a>
-        <a href="add.php" style="margin-right:15px;">Add Book</a>
-        <a href="search.php">Search Books</a>
-    </nav>
+ <nav style="padding:10px; background:#f2f2f2; margin-bottom:20px;">
+    <a href="index.php" style="margin-right:15px;">Home</a>
+    <a href="add.php" style="margin-right:15px;">Add Book</a>
+    <a href="search.php" style="margin-right:15px;">Search Books</a>
+
+    <?php if (isset($_SESSION['admin_id'])): ?>
+        <span style="margin-left:20px;">
+            Welcome, <?= htmlspecialchars($_SESSION['admin_name']) ?>
+        </span>
+
+        <a href="logout.php" style="float:right; color:red;">Logout</a>
+    <?php endif; ?>
+</nav>
 </header>
 <main style="padding:0 20px;">
