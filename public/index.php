@@ -1,4 +1,5 @@
 <?php
+require '../includes/admin_auth.php';
 include '../includes/header.php';
 require "../config/db.php";
 

@@ -1,4 +1,5 @@
 <?php
+require '../includes/admin_auth.php';
 include '../includes/header.php'; // session already started in header
 
 $old_title = $_POST['title'] ?? '';
