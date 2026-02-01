@@ -18,21 +18,35 @@ $csrf_token = $_SESSION['csrf_token'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <header>
- <nav style="padding:10px; background:#f2f2f2; margin-bottom:20px;">
-    <a href="index.php" style="margin-right:15px;">Home</a>
-    <a href="add.php" style="margin-right:15px;">Add Book</a>
-    <a href="search.php" style="margin-right:15px;">Search Books</a>
-
+    <div>
+    <i class="fa-solid fa-book book-icon"></i>
+    <p>Library Hub</p>
+    </div>
     <?php if (isset($_SESSION['admin_id'])): ?>
-        <span style="margin-left:20px;">
-            Welcome, <?= htmlspecialchars($_SESSION['admin_name']) ?>
-        </span>
-
-        <a href="logout.php" style="float:right; color:red;">Logout</a>
+        <div class="admin">
+            <img src="../assets/image/pngkey.com-no-image-png-1219231.png" alt="Profile" class="profile-pic">
+            <span>Welcome, <?= htmlspecialchars($_SESSION['admin_name']) ?></span>
+        </div>
     <?php endif; ?>
-</nav>
 </header>
-<main style="padding:0 20px;">
+<div class="slide">
+    <ul>
+        <li><a href="#"><i class="fas fa-tv"></i>Dashboard</a></li>
+        <li><a href="#"><i class="fa-solid fa-book"></i>Search Books</a></li>
+        <li><a href="#"><i class="fa-solid fa-pen-to-square"></i>Edit books</a></li>
+        <li><a href="#"><i class="fa-solid fa-folder"></i>Category</a></li>
+        <li><a href="#"><i class="fa-solid fa-user"></i>User</a></li>
+    </ul>
+       <?php if (isset($_SESSION['admin_id'])): ?>
+            <a href="logout.php" class="logout"> <i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+        <?php endif; ?>
+
+</div>
+
+<main style="padding: 20px; margin-left: 300px;">
