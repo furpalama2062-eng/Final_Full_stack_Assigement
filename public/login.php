@@ -1,7 +1,5 @@
 <?php
 require "../config/db.php";
-
-// Start session safely
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -14,18 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_raw = trim($_POST['email'] ?? '');
     $password  = trim($_POST['password'] ?? '');
 
-    // Required fields check
     if (empty($email_raw) || empty($password)) {
         $errors[] = "* All fields are required";
     } else {
-
-        // Validate email
         $email = filter_var($email_raw, FILTER_VALIDATE_EMAIL);
         if (!$email) {
             $errors[] = "* Invalid email address";
         } else {
-
-            // Fetch admin from DB
             $stmt = $pdo->prepare(
                 "SELECT id, name, password, role FROM users WHERE email = ? LIMIT 1"
             );
@@ -37,11 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($user['role'] !== 'admin') {
                 $errors[] = "* Access denied. Admin only.";
             } else {
-                // ✅ ADMIN LOGIN SUCCESS
                 $_SESSION['admin_id']   = $user['id'];
                 $_SESSION['admin_name'] = $user['name'];
 
-                // Regenerate session ID
                 session_regenerate_id(true);
 
                 header("Location: index.php");
@@ -55,26 +46,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
+    <link rel="stylesheet" href="../assets/css/logstyle.css">
 </head>
 <body>
+    <div class="auth-container">
+        <div class="form-container">
+            <h2 class="form-title">Admin Login</h2>
 
-<h2>Admin Login</h2>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-error">
+                    <?php foreach ($errors as $error): ?>
+                        <p><?= htmlspecialchars($error) ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
-<!-- Display Errors -->
-<?php foreach ($errors as $error): ?>
-    <p style="color:red"><?= htmlspecialchars($error) ?></p>
-<?php endforeach; ?>
+            <form method="POST" class="signup-form">
+                <div class="form-group">
+                    <input 
+                        type="email" 
+                        id="email"
+                        name="email" 
+                        class="form-input" 
+                        placeholder="Email" 
+                        value="<?= htmlspecialchars($email_raw) ?>" 
+                        required
+                    >
+                </div>
 
-<form method="POST">
-    <input type="email" name="email" placeholder="Email"
-           value="<?= htmlspecialchars($email_raw) ?>" required><br><br>
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        id="password"
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Password" 
+                        required
+                    >
+                </div>
 
-    <input type="password" name="password" placeholder="Password" required><br><br>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
 
-    <button type="submit">Login</button>
-</form>
-<a href="signup.php">New user</a>
-
+            <div class="form-footer">
+                <p class="footer-text">New user? <a href="signup.php" class="link">Create Account</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
