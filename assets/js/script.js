@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     title.addEventListener('input', fetchAutocomplete);
-
-    // Hide suggestions when clicking outside
     document.addEventListener('click', e => {
         if (e.target !== title) suggestionsDiv.style.display = 'none';
     });

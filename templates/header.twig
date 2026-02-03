@@ -1,14 +1,50 @@
-<header>
-    <nav style="padding:10px; background:#f2f2f2; margin-bottom:20px;">
-        <a href="index.php" style="margin-right:15px;">Home</a>
-        <a href="add.php" style="margin-right:15px;">Add Book</a>
-        <a href="search.php" style="margin-right:15px;">Search Books</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
 
-        {% if admin_name is defined %}
-            <span style="margin-left:20px;">
-                Welcome, {{ admin_name|e }}
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="header-brand">
+        <i class="fa-solid fa-book book-icon"></i>
+        <p class="brand-text">Library Hub</p>
+    </div>
+
+    {% if session.admin_id %}
+        <div class="admin-profile">
+            <img src="../assets/image/pngkey.com-no-image-png-1219231.png" class="profile-pic">
+            <span class="admin-name">
+                Welcome, {{ session.admin_name }}
             </span>
-            <a href="logout.php" style="float:right; color:red;">Logout</a>
-        {% endif %}
-    </nav>
+        </div>
+    {% endif %}
 </header>
+
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.php" class="nav-link"><i class="fas fa-tv"></i><span>Dashboard</span></a></li>
+            <li class="nav-item"><a href="search.php" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i><span>Search Books</span></a></li>
+            <li class="nav-item"><a href="add.php" class="nav-link"><i class="fa-solid fa-plus"></i><span>Add Book</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fa-solid fa-folder"></i><span>Category</span></a></li>
+            <li class="nav-item"><a href="users.php" class="nav-link"><i class="fa-solid fa-user"></i><span>Users</span></a></li>
+        </ul>
+    </nav>
+
+    {% if session.admin_id %}
+        <a href="logout.php" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+    {% endif %}
+</div>

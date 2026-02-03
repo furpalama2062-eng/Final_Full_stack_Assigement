@@ -31,11 +31,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($title) < 2 || strlen($title) > 100) {
         $errors[] = "Title must be between 2 and 100 characters.";
     }
+    if (!preg_match("/^[a-zA-Z0-9\s\-\.,'!?:#]+$/", $title)) {
+        $errors[] = "* Title contains invalid characters";
+    }
 
     if (!preg_match("/^[A-Za-z][A-Za-z\s\.\'-]{1,49}$/", $author)) {
         $errors[] = "Invalid author name format.";
     }
 
+    if (strlen($author) < 2 || strlen($author) > 50){
+        $errors[] = "Author name must be between 2 and 50 characters.";
+    } 
+    
+    if (!empty($publisher_year)) {
+        $date = DateTime::createFromFormat('Y-m-d', $publisher_year);
+        $today = new DateTime();
+        if (!$date || $date->format('Y-m-d') !== $publisher_year) {
+             $errors[] = "* Invalid published date format";
+        } elseif ($date > $today) {
+            $errors[] = "* Published year cannot be in the future";
+        } elseif ((int)$date->format('Y') < 1500) {
+            $errors[] = "* Published year is too old";
+    }
+    }
     if (!preg_match('/^\d{10}$|^\d{13}$/', $isbn)) {
         $errors[] = "ISBN must be 10 or 13 digits.";
     }

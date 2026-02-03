@@ -1,0 +1,114 @@
+{% include 'header.twig' %}
+
+<main class="main_contatin">
+
+<div class="page-header">
+    <h2 class="section-title">
+        <i class="fas fa-chart-line title-icon"></i>
+        Dashboard Overview
+    </h2>
+</div>
+
+<div class="stats-container">
+    <div class="stat-card stat-primary">
+        <div class="stat-icon">
+            <i class="fa-solid fa-book"></i>
+        </div>
+        <div class="stat-content">
+            <div class="stat-label">Total Books</div>
+            <div class="stat-value">{{ total }}</div>
+        </div>
+    </div>
+
+    <div class="stat-card stat-success">
+        <div class="stat-icon">
+            <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value">{{ total_users }}</div>
+        </div>
+    </div>
+
+    <div class="stat-card stat-info">
+        <div class="stat-icon">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div class="stat-content">
+            <div class="stat-label">Total Categories</div>
+            <div class="stat-value">{{ total_categories }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="page-header" style="margin-top: 48px;">
+    <h2 class="section-title">
+        <i class="fas fa-book-open title-icon"></i>
+        Recently Added Books
+    </h2>
+</div>
+
+<div class="table-container">
+
+{% if books %}
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th><i class="fa-solid fa-heading"></i> Title</th>
+                    <th><i class="fa-solid fa-user-pen"></i> Author</th>
+                    <th><i class="fa-solid fa-tag"></i> Category</th>
+                    <th><i class="fa-solid fa-calendar"></i> Published Year</th>
+                    <th><i class="fa-solid fa-barcode"></i> ISBN</th>
+                    <th class="action-header"><i class="fa-solid fa-sliders"></i> Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for row in books %}
+                <tr class="table-row">
+                    <td class="book-title">{{ row.title }}</td>
+                    <td>{{ row.author }}</td>
+                    <td>
+                        <span class="category-badge">{{ row.category }}</span>
+                    </td>
+                    <td>{{ row.published_year }}</td>
+                    <td class="isbn-cell">{{ row.isbn }}</td>
+
+                    <td class="action-cell">
+                        <a href="edit.php?id={{ row.id }}" 
+                           class="btn-action btn-edit"
+                           title="Edit Record">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <a href="delete.php?id={{ row.id }}&csrf={{ csrf_token }}"
+                           class="btn-action btn-delete"
+                           title="Delete Record"
+                           onclick="return confirm('Are you sure you want to delete this book?')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% else %}
+
+    <div class="empty-state">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <p class="empty-text">No books found in the library.</p>
+        <a href="add.php" class="btn-primary">
+            <i class="fa-solid fa-plus"></i> Add Your First Book
+        </a>
+    </div>
+
+{% endif %}
+
+</div>
+
+</main>
+
+{% include 'footer.twig' %}
